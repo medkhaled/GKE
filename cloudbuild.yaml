@@ -1,0 +1,24 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['pull', 'nginx:latest']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['tag', 'nginx:latest', 'us-central1-docker.pkg.dev/$PROJECT_ID/somme-python-repo/nginx-demo:$COMMIT_SHA']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/somme-python-repo/nginx-demo:$COMMIT_SHA']
+
+  - name: 'gcr.io/cloud-builders/gke-deploy'
+    args:
+      - run
+      - --filename=kubernetes/
+      - --image=us-central1-docker.pkg.dev/$PROJECT_ID/somme-python-repo/nginx-demo:$COMMIT_SHA
+      - --location=us-central1-a
+      - --cluster=my-gke-cluster
+
+images:
+  - us-central1-docker.pkg.dev/$PROJECT_ID/somme-python-repo/nginx-demo:$COMMIT_SHA
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET

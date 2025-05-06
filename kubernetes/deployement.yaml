@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-app
+  template:
+    metadata:
+      labels:
+        app: nginx-app
+    spec:
+      containers:
+        - name: nginx
+          image: us-central1-docker.pkg.dev/$PROJECT_ID/somme-python-repo/nginx-demo:$COMMIT_SHA
+          ports:
+            - containerPort: 80
