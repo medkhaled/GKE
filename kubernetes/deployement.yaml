@@ -17,3 +17,6 @@ spec:
           image: us-central1-docker.pkg.dev/${_PROJECT_ID}/somme-python-repo/nginx-demo:${_COMMIT_SHA}
           ports:
             - containerPort: 80
+substitutions:
+  _PROJECT_ID: 'tp-gke-458909'
+  _COMMIT_SHA: '234f49d40a04525167597419adb51a590098125a'
