@@ -15,6 +15,13 @@ steps:
       - --image=us-central1-docker.pkg.dev/${PROJECT_ID}/somme-python-repo/nginx-demo:${COMMIT_SHA}
       - --location=us-central1-a
       - --cluster=my-gke-cluster
+    env:
+      - 'PROJECT_ID=${PROJECT_ID}'
+      - 'COMMIT_SHA=${COMMIT_SHA}'
+
+substitutions:
+  _PROJECT_ID: 'tp-gke-458909'
+  _COMMIT_SHA: '234f49d40a04525167597419adb51a590098125a'
 
 images:
   - us-central1-docker.pkg.dev/${PROJECT_ID}/somme-python-repo/nginx-demo:${COMMIT_SHA}
